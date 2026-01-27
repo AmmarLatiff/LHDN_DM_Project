@@ -1,0 +1,344 @@
+erDiagram
+
+%% --- RELATIONSHIPS ---
+
+    %% TAXPAYER DIM relations to facts
+    TAXPAYER_DIM ||--o{ ASSET_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ OTH_INC_EXP_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ PREMISE_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ OTH_TRKG_INFO_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ EXT_ADDR_DIM : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ BUILDING_OWNER_DIM : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o| UNREG_TAXP_DIM : "TAXPAYER_KEY"
+
+    %% ASSET_FACT relations
+    ASSET_FACT }o--|| SELLER_DIM : "SELLER_KEY"
+    ASSET_FACT }o--|| CATEGORY_DIM : "CAT_KEY (U2_CAT_KEY)"
+    ASSET_FACT ||--o| VEHICLE_DIM : "ASSET_KEY"
+
+    %% OTH_INC_EXP_FACT relations
+    OTH_INC_EXP_FACT ||--o{ ORG_MBRSHP_DIM : "OTHER_IE_KEY"
+    OTH_INC_EXP_FACT ||--o{ RECEIVABLE_DIM : "OTHER_IE_KEY"
+    OTH_INC_EXP_FACT ||--o{ SERVICE_DIM : "OTHER_IE_KEY"
+
+    %% OTH_TRKG_INFO_FACT relations
+    OTH_TRKG_INFO_FACT ||--o{ BUS_LIC_DIM : "OTHER_TI_KEY"
+    OTH_TRKG_INFO_FACT ||--o{ PREMISE_FACT : "OTH_TI_KEY"
+
+    %% PREMISE_FACT relations
+    PREMISE_FACT ||--o{ BUILDING_OWNER_DIM : "OTH_TI_KEY"
+
+    %% CATEGORY_DIM relations
+    CATEGORY_DIM ||--o{ BUS_LIC_DIM : "CAT_KEY"
+    CATEGORY_DIM ||--o{ RECEIVABLE_DIM : "CAT_KEY"
+    
+    %% --- FACT TABLES IN THE CENTER ---
+    ASSET_FACT {
+        string IT_REF_NO
+        decimal ASSET_VALUE
+        string TAXPAYER_KEY FK
+        string ASSET_KEY PK
+        string SELLER_KEY FK
+        date EFFECTIVE_DATE
+        string FILE_TYPE
+        string ASSET_TYPE
+        date TRANSFER_DATE
+        date PURCHASE_DATE
+        decimal LOAN_AMOUNT
+        decimal INSTALLMENT_AMOUNT
+        int NO_OF_INSTALLMENT_MONTH
+        decimal DOWNPAYMENT
+        string FINANCIER
+        decimal SUM_INSURED
+        decimal TRADE_IN_PRICE
+        string TRADE_IN_REG_NO
+        string INSURERE_CODE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string INSURANCE_COMPANY
+    }
+
+    OTH_INC_EXP_FACT {
+        string TAXPAYER_KEY FK
+        string OTHER_IE_KEY PK
+        string REC_ID
+        date EFFECTIVE_DATE
+        string OTHER_IE_TYPE
+        string IE_CATEGORY
+        decimal AMOUNT
+        int INCOME_EXPENSE_YEAR
+        date INCOME_EXPENSE_DATE
+        string REMARKS
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    PREMISE_FACT {
+        string OTH_TI_KEY FK
+        string TAXPAYER_KEY FK
+        string REC_ID PK
+        date EFFECTIVE_DATE
+        int INFO_YEAR
+        string PREMISE_NAME
+        string PREMISE_ADDRESS
+        string PREMISE_POSTCODE
+        string PREMISE_ROBROC
+        string TYPE_OF_BUSINESS
+        decimal AMOUNT
+        string REMARK
+        string OWNER_TYPE
+        date REG_DATE
+        date DUE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    OTH_TRKG_INFO_FACT {
+        string TAXPAYER_KEY FK
+        string OTHER_TI_KEY PK
+        date EFFECTIVE_DATE
+        string REC_ID
+        date SNAPSHOT_DATE
+        string FILE_TYPE
+        string IT_REF_NO
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    %% --- DIMENSION TABLES SURROUNDING FACTS ---
+
+    TAXPAYER_DIM {
+        string TAXPAYER_KEY PK
+        string FILE_TYPE
+        string IT_REF_NO
+        string IT_ASSM_BRANCH
+        string ACTIVE_FLAG
+        string NEW_IC_NO
+        string OLD_IC_NO
+        string NAME
+        string PASSPORT_NO
+        string POLICE_NO
+        string ARMY_NO
+        string ROB_NO
+        string ROC_NO
+        string PHONE_NO
+        string SEX
+        string MARITAL_STATUS
+        string MALAYSIAN_CITIZEN
+        string CITIZEN_COUNTRY
+        string EPF_NO
+        string EMPLOYER_NO
+        date REGISTRATION_DATE
+        string FILE_STATUS
+        string VIP_CODE
+        int NO_OF_PARTNERSHIP
+        string COORPORATION_TYPE
+        string TRUST_TYPE
+        string REGISTRATION_CERT_NO
+        string WILL_INDICATOR
+        string AUTHORISATION_LETTER_INDICATOR
+        date AUTHORISATION_LETTER_DATE
+        string LOCAL_DECEASED_INDICATOR
+        string DECEASE_COUNTRY_CODE
+        string RACE_CODE
+        string RELIGION_CODE
+        string PROFESSION_CORD
+        string IMMIGRATION_INDICATOR
+        int TOTAL_CHILDREN
+        string PCB_TYPE
+        string IT_COLLECTION_BRANCH
+        string CKHT_ASSM_BRANCH
+        string CKHT_COLLECTION_BRANCH
+        date START_OF_ACCOUNT_PERIOD
+        date END_OF_ACCOUNT_PERIOD
+        string COMPANY_STATUS
+        string EST_IND
+        string HONORIFIC_CD
+        string TITLE_NAME
+        string TYP
+        string RESIDENT_IND
+        string RESIDENT_COUNTRY_CD
+        string CLASS_CD
+        string COMPANY_TYP
+        string CREATION_REASON
+        string PERMANENT_IND
+        decimal NET_IT_LGR_DR_AMT
+        decimal NET_IT_REFUND_CR_AMT
+        decimal NET_CKHT_LGRBL_AMT
+        decimal NET_IT_UPOS_CR_AMT
+        decimal NET_IT_UPOS_DR_AMT
+        string INVESTIGATION_IND
+        int INVEST_ASMSTART_YR
+        int INVEST_ASM_END_YR
+        decimal CMULATVE_ASSET_AMT
+        date LAST_CP77_CP38_DT
+        string SECT_8_EXEMPT_IND
+        string SECTION_104_IND
+        string MARKED_AS_DUPL_IND
+        string WRITE_OFF_STAT
+        string WRITE_OFF_REASONCD
+        string REMARKS
+        date INACTIVE_DT
+        date ACTIVATION_DT
+        date BANKRUPT_DT
+        string BANKRUPT_IND
+        string E_MALAYSIA_ITREFNO
+        string BANK_CD
+        string BANK_ACCT_NO
+        int NUM_OF_TIME_AUDIT
+        string AUDIT_CYCLE
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        int NR_START_YEAR
+        int NR_END_YEAR
+        string SOURCE_FLAG
+        date BIRTH_DT
+        date DEATH_DT
+    }
+
+    EXT_ADDR_DIM {
+        string REC_ID PK
+        string TAXPAYER_KEY FK
+        string SOURCE_SYSTEM_ID
+        date EFFECTIVE_DATE
+        string PMAKLUMAT_ID
+        string KATEGORI_ID
+        string ADDRESS_TYPE
+        string ADDRESS
+        string CITY
+        string STATE
+        string POSTCODE
+        string TELEPHONE_NO
+        timestamp LOADING_TIMESTAMP
+    }
+
+    BUILDING_OWNER_DIM {
+        string OTH_TI_KEY FK
+        string TAXPAYER_KEY FK
+        string IT_REF_NO
+        string COMPANY_NAME
+        string COMPANY_ADDRESS
+        string COMPANY_POSTCODE
+        string COMPANY_ROCROB
+        string PMAKLUMAT_ID
+        string KATEGORI_ID
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    UNREG_TAXP_DIM {
+        string TAXPAYER_KEY PK
+        string NEW_IC_NO
+        string OLD_IC_NO
+        string ROB_NO
+        string ROC_NO
+        string NAME
+        string PHONE_NO
+        string REG_STATUS
+        string ACTIVE_FLAG
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string PASSPORT_NO
+        string POLICE_NO
+        string ARMY_NO
+    }
+
+    SELLER_DIM {
+        string SELLER_KEY PK
+        string SELLER_DEVELOPER_NAME
+        string SELLER_DEVELOPER_ROC_NO
+        string SELLER_DEVELOPER_ADDRESS
+        string SELLER_POSTCODE
+        string SELLER_STATE
+        string SELLER_DEVELOPER_CONTACT_NO
+        string SELLER_IC_NO
+        string SELLER_CP_NO
+        string SELLER_PASSPORT_NO
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    CATEGORY_DIM {
+        string CAT_KEY PK
+        string CAT_ID
+        string CAT_DESC
+        string CAT_ACR
+        string GROUP_ID
+        string FORMAT_ID
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    BUS_LIC_DIM {
+        string OTHER_TI_KEY FK
+        string BUSINESS_TYPE
+        string LICENSE_PERMIT_NO
+        string LICENSE_PERMIT_PERIOD
+        decimal TOTAL_PAYMENT
+        date START_DATE
+        date END_DATE
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string CAT_KEY FK
+        string REC_ID PK
+        int LICENSE_INFO_YEAR
+        string LICENSE_CATEGORY
+        string REMARK
+    }
+
+    ORG_MBRSHP_DIM {
+        string OTHER_IE_KEY FK
+        string ORGANIZATION_NAME
+        string ORGANIZATION_ROC
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string PMAKLUMAT_ID
+        string KATEGORI_ID
+    }
+
+    RECEIVABLE_DIM {
+        string OTHER_IE_KEY FK
+        string KATEGORI_ID
+        string PMAKLUMAT_ID
+        string PAYER_NAME
+        string PAYER_ROC_NO
+        string PAYER_IT_REF_NO
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string CAT_KEY FK
+    }
+
+    SERVICE_DIM {
+        string OTHER_IE_KEY FK
+        string SERVICE_TYPE
+        string SERVICE_COMPANY
+        string SERVICE_COMPANY_ROC
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string KATEGORI_ID
+        string PMAKLUMAT_ID
+    }
+
+    VEHICLE_DIM {
+        string ASSET_KEY FK
+        string VEHICLE_REG_NO
+        int YEAR
+        string MAKE_MODEL
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        int YEAR_MAKE
+        string VEHICLE_CC
+        string MODEL
+        string REC_ID PK
+    }
