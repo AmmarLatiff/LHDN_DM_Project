@@ -1,0 +1,173 @@
+erDiagram
+
+    %% =====================================================
+    %% FACT TABLE (CENTRAL)
+    %% =====================================================
+    FOREIGNER_FACT {
+        string TAXPAYER_KEY FK
+        string FOREIGNER_KEY FK
+        int RECORD_MONTH
+        int RECORD_YEAR
+        string PASSPORT_NO
+        string EMPLOYER_ROC_NO
+        string EMPLOYER_PHONE_NO
+        string EMPLOYER_NAME
+        string DESIGNATION
+        decimal SALARY
+        string FOREIGNER_TYPE
+        date START_DATE
+        string PASS_DURATION
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    %% =====================================================
+    %% DIMENSION TABLES
+    %% =====================================================
+
+    TAXPAYER_DIM {
+        string TAXPAYER_KEY PK
+        string FILE_TYPE
+        string IT_REF_NO
+        string IT_ASSM_BRANCH
+        string ACTIVE_FLAG
+        string NEW_IC_NO
+        string OLD_IC_NO
+        string NAME
+        string PASSPORT_NO
+        string POLICE_NO
+        string ARMY_NO
+        string ROB_NO
+        string ROC_NO
+        string PHONE_NO
+        string SEX
+        string MARITAL_STATUS
+        string MALAYSIAN_CITIZEN
+        string CITIZEN_COUNTRY
+        string EPF_NO
+        string EMPLOYER_NO
+        date REGISTRATION_DATE
+        string FILE_STATUS
+        string VIP_CODE
+        int NO_OF_PARTNERSHIP
+        string COORPORATION_TYPE
+        string TRUST_TYPE
+        string REGISTRATION_CERT_NO
+        string WILL_INDICATOR
+        string AUTHORISATION_LETTER_INDICATOR
+        date AUTHORISATION_LETTER_DATE
+        string LOCAL_DECEASED_INDICATOR
+        string DECEASE_COUNTRY_CODE
+        string RACE_CODE
+        string RELIGION_CODE
+        string PROFESSION_CORD
+        string IMMIGRATION_INDICATOR
+        int TOTAL_CHILDREN
+        string PCB_TYPE
+        string IT_COLLECTION_BRANCH
+        string CKHT_ASSM_BRANCH
+        string CKHT_COLLECTION_BRANCH
+        date START_OF_ACCOUNT_PERIOD
+        date END_OF_ACCOUNT_PERIOD
+        string COMPANY_STATUS
+        string EST_IND
+        string HONORIFIC_CD
+        string TITLE_NAME
+        string TYP
+        string RESIDENT_IND
+        string RESIDENT_COUNTRY_CD
+        string CLASS_CD
+        string COMPANY_TYP
+        string CREATION_REASON
+        string PERMANENT_IND
+        decimal NET_IT_LGR_DR_AMT
+        decimal NET_IT_REFUND_CR_AMT
+        decimal NET_CKHT_LGRBL_AMT
+        decimal NET_IT_UPOS_CR_AMT
+        decimal NET_IT_UPOS_DR_AMT
+        string INVESTIGATION_IND
+        int INVEST_ASMSTART_YR
+        int INVEST_ASM_END_YR
+        decimal CMULATVE_ASSET_AMT
+        date LAST_CP77_CP38_DT
+        string SECT_8_EXEMPT_IND
+        string SECTION_104_IND
+        string MARKED_AS_DUPL_IND
+        string WRITE_OFF_STAT
+        string WRITE_OFF_REASONCD
+        string REMARKS
+        date INACTIVE_DT
+        date ACTIVATION_DT
+        date BANKRUPT_DT
+        string BANKRUPT_IND
+        string E_MALAYSIA_ITREFNO
+        string BANK_CD
+        string BANK_ACCT_NO
+        int NUM_OF_TIME_AUDIT
+        string AUDIT_CYCLE
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        int NR_START_YEAR
+        int NR_END_YEAR
+        string SOURCE_FLAG
+        date BIRTH_DT
+        date DEATH_DT
+    }
+
+    FOREIGNER_DIM {
+        string FOREIGNER_KEY PK
+        string FOREIGNER_ID
+        string NAME
+        string NATIONALITY
+        string GENDER
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    EXT_ADDR_DIM {
+        string REC_ID PK
+        string TAXPAYER_KEY FK
+        string SOURCE_SYSTEM_ID
+        date EFFECTIVE_DATE
+        string PMAKLUMAT_ID
+        string KATEGORI_ID
+        string ADDRESS_TYPE
+        string ADDRESS
+        string CITY
+        string STATE
+        string POSTCODE
+        string TELEPHONE_NO
+        timestamp LOADING_TIMESTAMP
+    }
+
+    UNREG_TAXP_DIM {
+        string TAXPAYER_KEY PK
+        string NEW_IC_NO
+        string OLD_IC_NO
+        string ROB_NO
+        string ROC_NO
+        string NAME
+        string PHONE_NO
+        string REG_STATUS
+        string ACTIVE_FLAG
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string PASSPORT_NO
+        string POLICE_NO
+        string ARMY_NO
+    }
+
+    %% =====================================================
+    %% RELATIONSHIPS
+    %% =====================================================
+
+
+    TAXPAYER_DIM ||--o{ FOREIGNER_FACT : "TAXPAYER_KEY"
+    FOREIGNER_DIM ||--o{ FOREIGNER_FACT : "FOREIGNER_KEY"
+
+    TAXPAYER_DIM ||--o{ EXT_ADDR_DIM : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o| UNREG_TAXP_DIM : "TAXPAYER_KEY"
