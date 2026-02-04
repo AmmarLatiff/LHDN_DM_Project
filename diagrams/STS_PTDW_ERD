@@ -1,0 +1,1498 @@
+erDiagram
+
+%% --- RELATIONSHIPS --- 
+
+
+    %% Additional relations added from PDF columns
+    TAXPAYER_DIM ||--o{ MARRIAGE_DIM : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ EMPLOYMENT_BRDG : "TAXPAYER_KEY"
+    EMPLOYER_DIM ||--o{ EMPLOYMENT_BRDG : "EMPLOYER_KEY"
+    TAXPAYER_DIM ||--o{ CKHT_FORM_DETAIL_DIM : "TAXPAYER_KEY"
+    CKHT_FORM_INFO_DIM ||--o{ CKHT_FORM_DETAIL_DIM : "CKHT_FORM_INFO_KEY"
+    CKHT_FORM_INFO_DIM ||--o{ CKHT_DISPOSAL_DIM : "CKHT_ASSET_KEY"
+    CKHT_TRANSACTION_DIM ||--o{ CKHT_TRANSACTION_FACT : "CKHT_TRX_KEY"
+    CKHT_TRANSACTION_DIM ||--o{ CKHT_EXPENDITURE_ITEM_FACT : "CKHT_TRX_KEY"
+    CKHT_WORKSHEET_DIM ||--o{ CKHT_EXPENDITURE_ITEM_FACT : "CKHT_WRKSHT_KEY"
+    PARTNERSHIP_DIM ||--o{ P_RELIEF_FACT : "PARTNERSHIP_KEY"
+    PARTNERSHIP_DIM ||--o{ P_WHT_FACT : "PARTNERSHIP_KEY"
+    OTH_INC_EXP_FACT ||--o{ RECEIVABLE_DIM : "OTHER_IE_KEY"
+    PARTNERSHIP_DIM || --o{ P_FINANCIAL_FACT : "PARTNERSHIP_KEY"
+    %% Core taxpayer grain
+    TAXPAYER_DIM ||--o{ PENALTY_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ PENALTY_DET_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ AUDIT_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ COMPOUND_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ ADDR_TRCK_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ WHT_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ CP39_PYMT_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ PAYMENT_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ R_FORM_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ TAX_ASSM_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ INCOME_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ FINANCIAL_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ RELIEF_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ DEDUCTION_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ INCENTIVE_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ INSTALL_PYMT_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ WRITEOFF_DET_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ CIVIL_SUIT_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ R_ASSM_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ R_PY_ASSM_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ R31_DIV_STMT_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ R31_108_BAL_STMT_FACT : "TAXPAYER_KEY"
+    TAXPAYER_DIM ||--o{ FILE_TRF_FACT : "TAXPAYER_KEY"
+
+    %% Branch & assessment grain
+    BRANCH_DIM ||--o{ PENALTY_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ AUDIT_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ COMPOUND_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ CP39_PYMT_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ TAX_ASSM_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ INCOME_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ FINANCIAL_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ RELIEF_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ DEDUCTION_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ INCENTIVE_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ R_FORM_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ PAYMENT_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ CIVIL_SUIT_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ R_ASSM_FACT : "BRANCH_KEY"
+    BRANCH_DIM ||--o{ R_PY_ASSM_FACT : "BRANCH_KEY"
+
+    %% Assessment dimension links (logical)
+    TAX_ASSM_DIM ||--o{ TAX_ASSM_FACT : "ASSESSMENT_KEY"
+    TAX_ASSM_DIM ||--o{ INCOME_FACT : "ASSESSMENT_KEY"
+    TAX_ASSM_DIM ||--o{ FINANCIAL_FACT : "ASSESSMENT_KEY"
+    TAX_ASSM_DIM ||--o{ RELIEF_FACT : "ASSESSMENT_KEY"
+    TAX_ASSM_DIM ||--o{ DEDUCTION_FACT : "ASSESSMENT_KEY"
+    TAX_ASSM_DIM ||--o{ INCENTIVE_FACT : "ASSESSMENT_KEY"
+
+    %% Employer
+    EMPLOYER_DIM ||--o{ CP39_PYMT_FACT : "EMPLOYER_KEY"
+
+    %% Business & partnership
+    BUSINESS_DIM_NEW ||--o{ INCOME_FACT : "BUSINESS_KEY"
+    BUSINESS_DIM_NEW ||--o{ FINANCIAL_FACT : "BUSINESS_KEY"
+    BUSINESS_DIM_NEW ||--o{ RELIEF_FACT : "BUSINESS_KEY"
+    BUSINESS_DIM_NEW ||--o{ DEDUCTION_FACT : "BUSINESS_KEY"
+    BUSINESS_DIM_NEW ||--o{ INCENTIVE_FACT : "BUSINESS_KEY"
+
+    %% Claim/lookup dimensions
+    DEDUCTION_DIM ||--o{ DEDUCTION_FACT : "DEDUCTION_KEY"
+    INCENTIVE_DIM ||--o{ INCENTIVE_FACT : "INCENTIVE_KEY"
+    PAYMENT_DIM ||--o{ PAYMENT_FACT : "PAYMENT_KEY"
+    BANK_DIM ||--o{ INSTALL_PYMT_FACT : "BANK_CD (BANK_CODE)"
+
+%% --- FACT TABLES --- 
+
+    PENALTY_FACT {
+        string TAXPAYER_KEY FK
+        string BRANCH_KEY FK
+        date EFFECTIVE_DATE
+        int ASSESSMENT_YEAR
+        string ASSESSMENT_TYPE
+        string GL_CODE
+        string SEQ
+        string RECORD_TYPE
+        date CREATION_DATE
+        decimal TAXPAYABLE_AMOUNT
+        decimal PAID_AMOUNT
+        decimal REMITTED_AMOUNT
+        decimal PENALTY_AMOUNT1
+        decimal PAID_AMOUNT1
+        decimal PENALTY_AMOUNT2
+        decimal PAID_AMOUNT2
+        decimal INCREASE_AMOUNT
+        decimal DUE_AMOUNT
+        string STATUS
+        int LGR_CALENDAR_YEAR
+        string PENALTY_TYPE
+        date EFFECTIVE_DT
+        string ASM_LGR_CD
+        string VALID_IND
+        string STSNC_IND
+        decimal TOT_TAX_PAID
+        decimal BAL_TO_PAID
+        decimal PERCENT_TOT_TAX
+        decimal DIFF_AMT
+        string PRINT_IND
+        string CREATION_TIME
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    PENALTY_DET_FACT {
+        string TAXPAYER_KEY FK
+        int ASSESSMENT_YEAR
+        date CREATE_DATE
+        string LEDGER_CODE
+        string SEQ_NO
+        string PNLT_CREATE_TM
+        date EFFECTIVE_DATE
+        date IMPOSED_DATE
+        decimal FIRST_RATE
+        decimal FIRST_PENALTY_AMT
+        date FIRST_PENALTY_DT
+        decimal FIRST_TO_PAID_AMT
+        decimal FIRST_PAID_AMT
+        decimal FIRST_BAL_TO_PAID
+        date FIRST_BALTOPAID_DT
+        decimal SECOND_RATE
+        decimal SECOND_PENALTY_AMT
+        date SECOND_PENALTY_DT
+        decimal SECOND_TO_PAID_AMT
+        decimal SECOND_PAID_AMT
+        decimal SECOND_BAL_TO_PAID
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    AUDIT_FACT {
+        string TAXPAYER_KEY FK
+        string BRANCH_KEY FK
+        int AUDIT_YEAR
+        string AUDIT_CRITERIA
+        string RULE_NO
+        string AUDIT_TYPE
+        int ASSM_YEAR
+        string AUDIT_REG_NO
+        date EFFECTIVE_DATE
+        decimal TP_SCORE
+        decimal SCORE
+        string MAIN_REASON
+        string SUB_REASON
+        string AUDIT_STATUS
+        date START_DATE
+        date END_DATE
+        decimal PENALTY_AMOUNT
+        string AUDITOR_IC_NO
+        string LEVEL_CODE
+        string INCENTIVE_IND
+        string OTHER_IND
+        string REPAYMENT_IND
+        string REFUND_IND
+        string PCB_FLAG
+        string IND_108
+        string FLAG_108
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    COMPOUND_FACT {
+        string TAXPAYER_KEY FK
+        string BRANCH_KEY FK
+        string TYPE
+        int ASSESSMENT_YEAR
+        date EFFECTIVE_DATE
+        date APPROVED_DATE
+        decimal IRB_COMPOUND_AMOUNT
+        decimal COMPOUND_AMOUNT
+        decimal TOTAL_TAX_AMOUNT
+        int NO_OF_COMPOUND
+        string STATUS
+        string COMMENTS
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    ADDR_TRCK_FACT {
+        string TAXPAYER_KEY FK
+        string ADDR_TYP
+        string DOC_TYP
+        string OWNER_IND
+        date EFFECTIVE_DATE
+        string STATUS
+        int ASSESSMENT_YEAR
+        string UPDATE_USERID
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string IT_REF_NO
+    }
+
+    WHT_FACT {
+        string TAXPAYER_KEY FK
+        int ASSESSMENT_YEAR
+        string ASSESSMENT_TYPE
+        string ASSM_SEQ
+        string SEC_CD
+        date EFFECTIVE_DATE
+        decimal GROSS_AMOUNT
+        decimal HOLD_REMIT_TAX
+        decimal NET_TOTAL_PAID
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    CP39_PYMT_FACT {
+        date EFFECTIVE_DATE PK
+        string TAXPAYER_KEY PK
+        string EMPLOYER_KEY PK
+        string BRANCH_KEY PK
+        int DEDUCTION_YEAR PK
+        string BATCH_NO PK
+        string SEQ_NO PK
+        int DEDUCTION_MONTH
+        string STATUS
+        decimal CP39_AMOUNT
+        decimal CP38_AMOUNT
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    PAYMENT_FACT {
+        string TAXPAYER_KEY FK
+        string BRANCH_CD
+        string PAYMENT_KEY FK
+        int ASSM_YEAR
+        string RECEIPT_NO
+        date DOC_DATE
+        string RECEIPT_SEQ_NO
+        string NO_TEXT
+        string TAX_TYPE
+        timestamp EFFECTIVE_TIMESTAMP
+        date RECEIPT_DATE
+        string PYMT_STAT
+        int RECEIPT_YEAR
+        decimal PAYMENT_AMOUNT
+        string EMPLOYER_REF_NO
+        string ASSOCIATE_IND
+        string PYMT_CD
+        string PCB_IND
+        string OLD_REF_NO
+        string INSTALL_DEDUCT_MTH
+        string COMPOUND_TYP
+        decimal XC14_AMT
+        date DUE_DT
+        string INSTAL_MTH
+        decimal SHORT_PAY_AMT
+        decimal PEN_PAY_AMT
+        decimal EXCESS_AMT
+        decimal INSTAL_AMT
+        decimal CREDIT_AMOUNT
+        decimal DEBIT_AMOUNT
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    R_FORM_FACT {
+        string TAXPAYER_KEY FK
+        string BRANCH_KEY FK
+        int ASSESSMENT_YEAR
+        date EFFECTIVE_DATE
+        string IT_REF_NO
+        date START_BASIS_PERIOD
+        date END_BASIS_PERIOD
+        string HOLD_STATUS
+        decimal CREDIT_BAL_CF
+        decimal PAYABLE_AMOUNT
+        string PENALTY_FLAG
+        date RECEIVE_DATE
+        date PROCESS_DATE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    TAX_ASSM_FACT {
+        string ASSESSMENT_KEY PK
+        string BRANCH_KEY FK
+        string BUSINESS_KEY FK
+        string TAXPAYER_KEY FK
+        date EFFECTIVE_DATE
+        decimal AGGR_STAT_INC
+        decimal TOTAL_DEDUCTION
+        decimal TOTAL_INCOME
+        decimal TOTAL_RELIEF
+        decimal CHARGEABLE_INCOME
+        decimal TOTAL_TAX_5
+        decimal TOTAL_TAX_8
+        decimal TOTAL_TAX_10
+        decimal TOTAL_TAX_15
+        decimal TOTAL_TAX_28
+        decimal TOTAL_TAX_20
+        decimal TAX_ON_FIRST_INCOME
+        decimal TAX_ON_FIRST_TAX
+        decimal TAX_ON_BAL_INCOME
+        decimal TAX_ON_BAL_RATE
+        decimal TAX_ON_BAL_TAX
+        decimal TOTAL_TAX
+        decimal TOTAL_REBATE
+        decimal TOT_TAX_AFT_REBATE
+        decimal TOT_DED_AFT_REBATE
+        decimal TAX_PAYABLE_REPAYABLE
+        string REPAYMENT_INDICATOR
+        decimal TOTAL_TAX_LIABILITY
+        decimal OPER_HQ_TAX_INCOME
+        decimal FOREIGN_FUND_TAX_INC
+        decimal PENALTY_112_AMOUNT
+        decimal PENALTY_113_AMOUNT
+        decimal WHT_107A_GROSS_AMOUNT
+        decimal WHT_107A_REMITTED
+        decimal WHT_107A_NET_AMOUNT
+        decimal WHT_109_GROSS_AMOUNT
+        decimal WHT_109_REMITTED
+        decimal WHT_109_NET_AMOUNT
+        decimal WHT_109A_GROSS_AMOUNT
+        decimal WHT_109A_REMITTED
+        decimal WHT_109A_NET_AMOUNT
+        decimal WHT_109B_GROSS_AMOUNT
+        decimal WHT_109B_REMITTED
+        decimal WHT_109B_NET_AMOUNT
+        decimal STD_PAID
+        decimal STD_FROM_SPOUSE
+        decimal INSTALLMENT_PAID
+        decimal EXEMPT_BAL_BF
+        decimal EXEMPT_DIVIDEND
+        decimal EXEMPT_BAL_CF
+        decimal TOTAL_CLAIM
+        int LGR_CALENDAR_YR
+        decimal TOT_AFT_RBATE_PNLT
+        string NR_RLIEF_ALLOW_IND
+        decimal PREV_REPAYMENT_AMT
+        decimal CURRENT_NA_TAX_AMT
+        date NA_DT
+        string ASM_TYP
+        string CAPTURED_TYP
+        decimal PYMT_AMT
+        decimal TAX_RATE
+        date LAST_PYMT_RECV_DT
+        string UPDATE_USERID
+        string NA_SECURITY_NO
+        decimal INC_FROM_SPOUSE
+        decimal LOSSES_CURR_YEAR
+        decimal LOSSES_PREV_YEAR
+        decimal LOSSES_CF
+        decimal BUSINESS_ZAKAT
+        date PAYMENT_DUE_DATE
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+
+
+    INCOME_FACT {
+        string ASSESSMENT_KEY PK
+        string TAXPAYER_KEY PK
+        string BRANCH_KEY PK
+        string BUSINESS_KEY PK
+        date EFFECTIVE_DATE PK
+        decimal SALARY_AND_WAGES
+        decimal INTEREST_INCOME
+        decimal DIVIDEND_INCOME
+        decimal LOSS_BF
+        decimal PENSION_ANNUITY
+        decimal RENT_ROYALTY
+        decimal OTHER_GAINS
+        decimal TOTAL_BUSINESS_INCOME
+        decimal TOTAL_PARTNERSHIP_INCOME
+        decimal PRIMARY_BUSINESS_INCOME
+        decimal AGGR_INC
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    FINANCIAL_FACT {
+        string ASSESSMENT_KEY PK
+        string TAXPAYER_KEY PK
+        string BRANCH_KEY PK
+        string BUSINESS_KEY PK
+        date EFFECTIVE_DATE PK
+        decimal GROSS_SALES
+        decimal OPENING_STOCK
+        decimal PURCHASES
+        decimal COST_OF_GOODS_SOLD
+        decimal CLOSING_STOCK
+        decimal GROSS_PROFIT
+        decimal NET_PROFIT_OR_LOSS
+        decimal TOTAL_ASSETS
+        decimal TOTAL_LIABILITIES
+        decimal TOTAL_EQUITY
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    RELIEF_FACT {
+        string ASSESSMENT_KEY PK
+        string TAXPAYER_KEY PK
+        string BRANCH_KEY PK
+        string BUSINESS_KEY PK
+        date EFFECTIVE_DATE PK
+        decimal TOTAL_CREDITS_RELIEFS
+        decimal TOTAL_DONATION_GIFT
+        decimal TOTAL_REBATE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    DEDUCTION_FACT {
+        string ASSESSMENT_KEY PK
+        string TAXPAYER_KEY PK
+        string BRANCH_KEY PK
+        string BUSINESS_KEY PK
+        string DEDUCTION_KEY PK
+        date EFFECTIVE_DATE PK
+        decimal CLAIM_AMOUNT
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    INCENTIVE_FACT {
+        string ASSESSMENT_KEY PK
+        string INCENTIVE_KEY PK
+        string TAXPAYER_KEY PK
+        string BRANCH_KEY PK
+        string BUSINESS_KEY PK
+        date EFFECTIVE_DATE PK
+        decimal CLAIM_AMOUNT
+        decimal BALANCE_CF
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    INSTALL_PYMT_FACT {
+        string TAXPAYER_KEY PK
+        int ASSESSMENT_YEAR PK
+        string TYP PK
+        timestamp LOADING_TIMESTAMP
+        string ISCH_SEQ_NO PK
+        string SEQ_NO PK
+        date EFFECTIVE_DATE PK
+        decimal DUE_AMT
+        date DUE_DT
+        string IND
+        string PYMT_CD
+        string CHEQUE_NO
+        string ACCT_NO
+        string BANK_CD
+        decimal INT_AMT
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+    }
+
+    WRITEOFF_DET_FACT {
+        string TAXPAYER_KEY PK
+        string WOFF_TYPE PK
+        int ASSESSMENT_YEAR PK
+        date TTSWOFF_CRETDT
+        string REV_NUM
+        date EFFECTIVE_DATE
+        decimal COURT_COST
+        decimal INTEREST
+        decimal TAX_AMT
+        string TYPE
+        date ASM_DT
+        string DEBT_AGE
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    CIVIL_SUIT_FACT {
+        string TAXPAYER_KEY FK
+        string BRANCH_KEY FK
+        string CIVIL_SUIT_NO
+        date DATE_CREATED
+        date EFFECTIVE_DATE
+        int SUMMON_YEAR
+        string SUIT_TYPE
+        string CIVIL_LEVEL
+        decimal CLAIM_AMOUNT
+        decimal BALANCE_AMOUNT
+        string STATUS
+        string IT_REF_NO
+        string FILE_TYPE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+        R_ASSM_FACT {
+        decimal TAXPAYER_KEY FK
+        string BRANCH_KEY FK
+        int ASSESSMENT_YEAR
+        string ASSESSMENT_TYPE
+        int SEQ_NO
+        date EFFECTIVE_DATE
+        string IT_REF_NO
+        date PROCESS_DATE
+        decimal CREDIT_BAL_BF
+        decimal CREDIT_SECT_110
+        decimal TAXABLE_AMT
+        decimal TOTL_CREDIT_AMT
+        int DEBT_DUE_CURR_YR
+        decimal CREDIT_BL_CF
+        string ASM_STATUS
+        date TAX_PAID_DT
+        decimal TAX_PAID_AT
+        decimal AMT_PAYABLE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        decimal COMPARISON_AMT_SEC
+        decimal ADD_CREDIT_SECT_11
+        string COMPARED_AGGREGATE
+        string COMPARED_TOTL
+        decimal TFR_AMT_FR_DEBT_DU
+        string PENALTY_SECT_108_S
+        string PENALTY_SECT_108_0
+        string DIVIDEND_GROSS_TOT
+        decimal DIVIDEND_TOTL_TAX
+        string DIVIDEND_NETT_TOTL
+        string UPDATE_USERID
+        date S_NOTICE_DT
+        string PENALTY_FLAG
+        string APPROVED_STATUS
+        decimal ADD_REDUCED_AMT
+        string REDUCED_CR_AFT_BA
+        int NUM_OF_LATE_R_FORM
+        decimal IND_108_BALANCE
+        date IGNORED_DT
+        decimal BALANCE_108_CF
+        decimal CREDIT110_FROM_DIV
+        string TOTL_RELIEF_132_13
+        string COMPARED_TOTLS_A3
+        decimal ADJUSTED_AMT
+        string DIFFERENCE_A2_A6_A
+        decimal TOTL_REPAYMENT_AMT
+        string TOTL_REDUCED_CREDI
+        decimal REVISED_108_BAL_AM
+        string REVISED_108_IGNORE
+        decimal COMPARED_TAX_REDUC
+        string SECT49_DEBT_DUE
+        string PRE_DEBT_DUE
+        decimal DIV_TAX_DEDUCT_NON
+        string R08_PENALTY_SUBSEK
+        decimal R08_FINAL_TAX_SUBS
+        string R08_TOTL_BEFORE_FI
+        decimal TAX_PAID_DT_17
+        decimal TAX_PAID_AT_17
+        decimal ADD_REDUCED_AMT_17
+    }
+
+    R_PY_ASSM_FACT {
+        string TAXPAYER_KEY FK
+        string BRANCH_KEY FK
+        int ASSESSMENT_YEAR
+        string ASSESSMENT_TYPE
+        string SEQ_NO
+        date EFFECTIVE_DATE
+        string IT_REF_NO
+        decimal CREDIT_BALANCE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    R31_DIV_STMT_FACT {
+        string R31_SUB_KEY
+        string R31_ASSM_KEY
+        date EFFECTIVE_DATE
+        string IT_REF_NO
+        string TAXPAYER_KEY FK
+        date PAYMENT_DATE1
+        decimal GROSS_AMT1
+        decimal TAX_DEDUCTION1
+        decimal NETT_AMT1
+        decimal R31_TOTL_DIV_GROSS
+        decimal R31_TOTL_DIV_TAX_D
+        decimal R31_TOTL_DIV_NETT
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    R31_108_BAL_STMT_FACT {
+        string R31_SUB_KEY
+        string R31_ASSM_KEY
+        string IT_REF_NO
+        date EFFECTIVE_DATE
+        string TAXPAYER_KEY FK
+        decimal R31_TOTL_CURR_TAX
+        decimal R31_TOTL_CREDIT
+        decimal TAX_REFUND
+        decimal TAX_REMITTED
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    FILE_TRF_FACT {
+        string TAXPAYER_KEY FK
+        string ID_NO
+        string AUTO_TRANS_IND
+        timestamp TRANS_TMSTAMP
+        date EFFECTIVE_DATE
+        string STATUS
+        date APPROVED_DATE
+        string TRANSFER_TYPE
+        string FILE_TYPE_FR
+        string FILE_TYPE_TO
+        string ASSM_BRANCH_FR
+        string ASSM_BRANCH_TO
+        string COL_BRANCH_FR
+        string COL_BRANCH_TO
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+%% --- DIMENSION TABLES --- 
+
+    TAXPAYER_DIM {
+        string TAXPAYER_KEY PK
+        string FILE_TYPE
+        string IT_REF_NO
+        string IT_ASSM_BRANCH
+        string ACTIVE_FLAG
+        string NEW_IC_NO
+        string OLD_IC_NO
+        string NAME
+        string PASSPORT_NO
+        string POLICE_NO
+        string ARMY_NO
+        string ROB_NO
+        string ROC_NO
+        string PHONE_NO
+        string SEX
+        string MARITAL_STATUS
+        string MALAYSIAN_CITIZEN
+        string CITIZEN_COUNTRY
+        string EPF_NO
+        string EMPLOYER_NO
+        date REGISTRATION_DATE
+        string FILE_STATUS
+        string VIP_CODE
+        int NO_OF_PARTNERSHIP
+        string COORPORATION_TYPE
+        string TRUST_TYPE
+        string REGISTRATION_CERT_NO
+        string WILL_INDICATOR
+        string AUTHORISATION_LETTER_INDICATOR
+        date AUTHORISATION_LETTER_DATE
+        string LOCAL_DECEASED_INDICATOR
+        string DECEASE_COUNTRY_CODE
+        string RACE_CODE
+        string RELIGION_CODE
+        string PROFESSION_CORD
+        string IMMIGRATION_INDICATOR
+        int TOTAL_CHILDREN
+        string PCB_TYPE
+        string IT_COLLECTION_BRANCH
+        string CKHT_ASSM_BRANCH
+        string CKHT_COLLECTION_BRANCH
+        date START_OF_ACCOUNT_PERIOD
+        date END_OF_ACCOUNT_PERIOD
+        string COMPANY_STATUS
+        string EST_IND
+        string HONORIFIC_CD
+        string TITLE_NAME
+        string TYP
+        string RESIDENT_IND
+        string RESIDENT_COUNTRY_CD
+        string CLASS_CD
+        string COMPANY_TYP
+        string CREATION_REASON
+        string PERMANENT_IND
+        decimal NET_IT_LGR_DR_AMT
+        decimal NET_IT_REFUND_CR_AMT
+        decimal NET_CKHT_LGRBL_AMT
+        decimal NET_IT_UPOS_CR_AMT
+        decimal NET_IT_UPOS_DR_AMT
+        string INVESTIGATION_IND
+        int INVEST_ASMSTART_YR
+        int INVEST_ASM_END_YR
+        decimal CMULATVE_ASSET_AMT
+        date LAST_CP77_CP38_DT
+        string SECT_8_EXEMPT_IND
+        string SECTION_104_IND
+        string MARKED_AS_DUPL_IND
+        string WRITE_OFF_STAT
+        string WRITE_OFF_REASONCD
+        string REMARKS
+        date INACTIVE_DT
+        date ACTIVATION_DT
+        date BANKRUPT_DT
+        string BANKRUPT_IND
+        string E_MALAYSIA_ITREFNO
+        string BANK_CD
+        string BANK_ACCT_NO
+        int NUM_OF_TIME_AUDIT
+        string AUDIT_CYCLE
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        int NR_START_YEAR
+        int NR_END_YEAR
+        string SOURCE_FLAG
+        date BIRTH_DT
+        date DEATH_DT
+    }
+
+    BRANCH_DIM {
+        string BRANCH_KEY PK
+        string BRANCH_CODE
+        string BRANCH_NAME
+        string BRANCH_INDICATOR
+        string BRANCH_TYPE
+        string PAYMENT_CENTER
+        string COVERAGE_COLLECTION_BRANCH
+        string STATE
+        string GEOGRAPHICAL_LOCATION
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string ADDR_LINE1
+        string ADDR_LINE2
+        string ADDR_LINE3
+        string POSTCODE
+        string CITY
+        string STATE_CD
+        string PHONE_NO
+        string FAX_NO
+    }
+
+        TAX_ASSM_DIM {
+        string ASSESSMENT_KEY PK
+        string IT_REF_NO
+        int ASSESSMENT_YEAR
+        string ASSESSMENT_TYPE
+        int SEQ_NO
+        string MAIN_BUSINESS_CODE
+        date PROCESS_DATE
+        string COMBINED_INDICATOR
+        string LEAD_INDICATOR
+        string RAISE_TYPE
+        string ASSESSMENT_STATUS
+        string PY_INDICATOR
+        decimal TAX_AGENT_KEY
+        string DISPOSAL_OF_PROPERTY
+        string DISPOSAL_DECLARED
+        string PUBLIC_ORDER
+        decimal TAX_REPAYMENT
+        decimal TAX_REFUND_SUMM
+        decimal CURRENT_NA_TAX_AMT
+        string UPDATE_USERID
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    EMPLOYER_DIM {
+        string EMPLOYER_KEY PK
+        string EMPLOYER_NO
+        string NAME
+        string TYPE
+        string STATUS
+        date REGISTRATION_DATE
+        string IT_ASSESSMENT_BRANCH
+        int EMPLOYEE_PCB_COUNT
+        int EMPLOYEE_COUNT
+        int ACTIVE_EMPLOYEE_COUNT
+        string EPF_NO
+        string SOCSO_NO
+        date EFFECTIVE_DATE
+        string TAXPAYER_KEY
+        string IT_REF_NO
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string FILE_TYPE
+        string IT_COLLECTION_BRANCH
+    }
+
+    BUSINESS_DIM_NEW {
+        string BUSINESS_KEY PK
+        string BUSINESS_GROUP_CODE
+        string BUSINESS_CODE
+        string BUSINESS_DESCRIPTION
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        date STS_EFFECTIVE_DT
+        string BUS_GRP_KEY
+    }
+
+    DEDUCTION_DIM {
+        string DEDUCTION_KEY PK
+        string CLAIM_CODE
+        string CLAIM_DESCRIPTION
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    INCENTIVE_DIM {
+        string INCENTIVE_KEY PK
+        string CLAIM_TYPE
+        string CLAIM_SEQ
+        string CLAIM_DESCRIPTION
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    PAYMENT_DIM {
+        string PAYMENT_KEY PK
+        string PAYMENT_CODE
+        string DEBIT_CREDIT
+        string PAYMENT_DESC
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    BANK_DIM {
+        string BANK_CODE PK
+        string BANK_NAME
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    RECEIVABLE_DIM {
+        string OTHER_IE_KEY PK 
+        string KATEGORI_ID PK
+        string PMAKLUMAT_ID PK
+        string PAYER_NAME
+        string PAYER_ROC_NO
+        string PAYER_IT_REF_NO
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string CAT_KEY FK
+    }
+
+    PARTNERSHIP_DIM {
+        string PARTNERSHIP_KEY PK
+        string IT_REF_NO
+        int ASSESSMENT_YEAR
+        int SEQ_NO
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    ADDRESS_DIM {
+        string ADDRESS_TYPE
+        string ACTIVE_FLAG
+        string ADDRESS_KEY PK
+        string ADDRESS_ID
+        date EFFECTIVE_DATE
+        string ADDRESS_LINE1
+        string ADDRESS_LINE2
+        string ADDRESS_LINE3
+        string CITY
+        string STATE
+        string POSTCODE
+        string TELEPHONE_NO
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    P_RELIEF_FACT {
+        decimal TAXPAYER_KEY FK
+        string PARTNERSHIP_KEY FK
+        timestamp EFFECTIVE_TIMESTAMP
+        string IT_REF_NO
+        string SEC110_SETOFF_OTHERS
+        string SEC132_RELIEF
+        string SEC133_RELIEF
+        decimal PETROLEUM_EXPENSE
+        string GIFT_TO_GOVERNMENT
+        string GIFT_OF_ARTEFACT
+        string GIFT_TO_LIBRARY
+        string GIFT_TO_ART_GALLERY
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        decimal PLANTATION_EXPENSES
+        string GIFT_TO_PUBLIC_FOR_DISABLE
+        string GIFT_TO_HEALTHCARE
+        decimal OTH_RELIEF_ALLOW_ACT1967
+    }
+
+    MARRIAGE_DIM {
+        string IT_REF_NO
+        date MARRIAGE_DATE
+        string MARRIAGE_KEY PK
+        decimal TAXPAYER_KEY FK
+        date SEPARATION_DATE
+        string STATUS
+        string SPOUSE_NAME
+        string SPOUSE_NEW_IC_NO
+        string SPOUSE_OLD_IC_NO
+        string SPOUSE_PASSPORT_NO
+        string SPOUSE_IT_REF_NO
+        string SPOUSE_POLICE_ARMY_NO
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    CKHT_FORM_INFO_DIM {
+        string CKHT_FORM_INFO_KEY PK
+        string CODE_ASSET
+        int SEQ_NO
+        string IT_REF_NO
+        string CKHT_ASSET_KEY
+        timestamp EFFECTIVE_TIMESTAMP
+        string REMARKS
+        date ACTION_DATE
+        date COMPLETE_DATE
+        string CURR_ASSIGN_ID
+        date CURR_ASSIGN_DATE
+        string PREV_ASSIGN_ID
+        date PREV_ASSIGN_DATE
+        string INPUT_USERID
+        string INPUT_USERICNO
+        date INPUT_TRX_DATE
+        string TRANS_ID
+        string STAT
+        string CURR_ASSIGN_IC
+        string PREV_ASSIGN_IC
+        decimal TAXP_TYP
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    CKHT_FORM_DETAIL_DIM {
+        string CKHT_FORM_DETAIL_KEY PK
+        string CKHT_FORM_INFO_KEY FK
+        string DOC_TYP
+        decimal TAXPAYER_KEY FK
+        decimal REMS_TAXPAYER_KEY
+        string DETAIL_NO
+        date RECEIVED_DATE
+        date DOC_DATE
+        string CO_IND
+        string CO_NAME
+        string ADDR_IND
+        string ADDR_LINE1
+        string ADDR_LINE2
+        string ADDR_LINE3
+        string POSTCODE
+        string CITY
+        string STATE_CODE
+        string INPUT_USERID
+        string INPUT_USERICNO
+        string CLIENT_REF_NO
+        timestamp EFFECTIVE_TIMESTAMP
+        date BIRTH_DATE
+        string CKHT_REF_NO
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    CKHT_WORKSHEET_DIM {
+        string CKHT_WRKSHT_KEY PK
+        string IT_REF_NO
+        string CKHT_TRX_NO
+        string CODE_ASSET
+        int YR
+        int WS_SEQ_NO
+        string ASSM_NO
+        string ASSM_TYP
+        string RP_IND
+        string ACQ_ADJ_REM
+        string DISPOS_ADJ_REM
+        string LAWYER_COPY_IND
+        string STAT
+        date APPROVAL_DT
+        string APPROVAL_USERID
+        string APPROVAL_ICNO
+        string REMARKS
+        string INPUT_USRID
+        string INPUT_USERICNO
+        int OLD_SEQ_NO
+        date INPUT_TXN_DT
+        string TRANS_ID
+        string FK_TNCCHKAIT_REF_NO
+        string FK_TNCCHKAITASSM_NO
+        string FK_TNCCHKAITASSM_NO2
+        int WAIVED_YR_IND
+        string P2L4_IND
+        date TRANSACTION_DT
+        date ACQUISITION_DT
+        string SEK14_IND
+        timestamp EFFECTIVE_TIMESTAMP
+        string SOURCE_SYSTEM_ID
+    }
+
+    CKHT_TRANSACTION_DIM {
+        string CKHT_TRX_KEY PK
+        string IT_REF_NO
+        string CODE_ASSET
+        string CKHT_TRX_NO
+        string DATE
+        string TYP
+        string STATUS
+        string ASSET_TYPE
+        string PAYMENT_MODE
+        string NOMINEE_IND
+        string NPR_IC_IND
+        string PRINCIPAL_IT_REF_NO
+        date CKHT_FORM_RCV_DATE
+        string OWNERSHIP_RAT
+        string OWNERSHIP_PCT
+        date ACQUISITION_DATE
+        string CLEAR_STAT
+        string GOVERNMENT_IND
+        string NOMINEE_PRINCIPAL_RELATION_TYP
+        string REF_NO
+        string DESCP
+        string RN_ISS_IND
+        date RN_ISS_DATE
+        string RPC_STAT
+        int OLD_SEQ_NO
+        string INPUT_USER_ID
+        string INPUT_USER_ICNO
+        date INPUT_TRX_DATE
+        date FINAL_NOTICE_DATE
+        date FEEDBACK_NOTICE_DATE
+        string RATIO_UP
+        string RATIO_DOWN
+        string TRANS_ID
+        string IC_NO
+        string ADDR_LINE1
+        string ADDR_LINE2
+        string ADDR_LINE3
+        string POSTCODE
+        string CITY
+        string STATE_CODE
+        string ADDRESS_IND
+        string STATE_DESCP
+        date ADDRESS_DOC_DATE
+        string CKHT3_IND
+        string LAWYER_IT_REF_NO
+        string EXTENSION_NO
+        string UPDATE_USERID
+        timestamp UPDATE_TIMESTAMP
+        string ONFI_IND
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    CKHT_TRANSACTION_FACT {
+        string CKHT_TRX_KEY FK
+        timestamp EFFECTIVE_TIMESTAMP
+        decimal TAXPAYER_KEY FK
+        decimal REMS_TAXPAYER_KEY
+        decimal AMOUNT
+        decimal SURRENDER_REFRAIN_RIGHTS_AMT
+        decimal SHARE_CNT
+        decimal TOT_AMT
+        decimal MKT_VALUE_AMT
+        decimal ACQUISITION_AMT
+        decimal ACQUISITION_COST_AMT
+        decimal AMOUNT_SO2
+        decimal RN_AMT
+        decimal RETENTION_AMT
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    CKHT_EXPENDITURE_ITEM_FACT {
+        string CKHT_TRX_KEY FK
+        string CKHT_WRKSHT_KEY FK
+        string TYP
+        timestamp EFFECTIVE_TIMESTAMP
+        string CKHT_ASSET_KEY
+        decimal AMOUNT
+        decimal ADJ_AMT
+        string REMARKS
+        string UPDATE_USERID
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    CKHT_DISPOSAL_DIM {
+        string CKHT_ASSET_KEY PK
+        string CODE_ASSET
+        string AGGREEMENT_IND
+        date AGREEMENT_DATE
+        string DISPOSAL_INFO_TYPE
+        string REC_IND
+        date DISPOSAL_XFER_CONCLUSION_DATE
+        string DISPOSAL_CANCELLED_IND
+        date CNL_DATE
+        string ASSET_DISPOSED_IND
+        string SOURCE_TYP
+        decimal MARKET_1970_AMT
+        string STATE_CODE
+        string DISTRICT_NAME
+        string LOT_NO
+        string PLAN_NO
+        string TITLE_NO
+        string LOT_AREA_TEXT
+        string SECT_TEXT
+        string TOWN_NAME
+        string KAMPUNG_NAME
+        string MUKIM_NAME
+        string STRUCTURE_TYP_TEXT
+        string BUILDING_IN_SALE_IND
+        date BUILD_DATE
+        string DEVELOPER_NAME
+        string COMPANY_NAME
+        decimal TOT_SHARE_DISPOSED_NO
+        decimal TOT_ISSUED_SHARE_NO
+        decimal RPC_MARKET_VALUE_AMT
+        string LAND_STAT
+        int START_LEASE_PERIOD_YEAR
+        int END_LEASE_PERIOD_YEAR
+        decimal TOTAL_ACQUIRED_SHARES_NO
+        string REMARKS
+        int OLD_SEQ_NO
+        string INPUT_USERID
+        string INPUT_USERICNO
+        decimal TOTAL_DISPOSAL_AMT
+        string LAWYER_IT_REF_NO
+        string CLIENT_FILE_REF_NO
+        string ACP_IND
+        string RPC_STAT
+        date ACQUIRED_SHARES_DATE
+        string ASSET_NO
+        string EXT_NO
+        date INPUT_TXN_DATE
+        string TRANS_ID
+        date DISPOSAL_DATE
+        string TOTAL_DISPOSER
+        string ASSET_TYPE
+        string ADDR_LINE1
+        string ADDR_LINE2
+        string ADDR_LINE3
+        string POSTCODE
+        string CITY
+        string CASH_CONSIDERATION
+        string BUILDING_STATE_CODE
+        timestamp EFFECTIVE_TIMESTAMP
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    BRANCH_CD_DIM {
+        string BRANCH_CD_KEY PK
+        string POSTCODE
+        string BRCH_CD
+        string BRCH_NAME
+        date EFFECTIVE_DATE
+        timestamp LOADING_TIMESTAMP
+        string SOURCE_SYSTEM_ID
+    }
+
+    BRANCH_CD_FACT {
+        string SEO_NO PK
+        string SEO_POC_POSTCODE PK
+        string COVER_AREA
+        date EFFECTIVE_DATE
+        timestamp LOADING_TIMESTAMP
+        string SOURCE_SYSTEM_ID
+    }
+
+    COLC_LOOKUP {
+        string COLC_CD PK
+        string COLC_TYP PK
+        int COLC_COUNTERNO PK
+        string NAME
+    }
+
+    DRSN_LOOKUP {
+        string DISHONOUR_REASONCD PK
+        string DISHONOUR_REASON_DESC
+    }
+
+    EMPLOYMENT_BRDG {
+        string IT_REF_NO PK
+        date EFFECTIVE_DATE PK
+        decimal TAXPAYER_KEY PK 
+        string EMPLOYER_KEY PK 
+        int SEQ_NO PK
+        date COMMENCEMENT_DATE
+        date CESSATION_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    COMP_OWNER_BRDG {
+        decimal COMPANY_TAX_KEY PK
+        int ASSESSMENT_YEAR PK
+        decimal OWNER_TAX_KEY PK
+        string ROLE_TYPE PK
+        date EFFECTIVE_DATE PK
+        decimal PERCENTAGE_EQUITY_HOLDING
+        string SALARY_FEE
+        decimal TOTAL_ALLOWANCE
+        decimal PERCENTAGE_SHARE_HOLDING
+        int CITIZEN_COUNTRY
+        string INTERCOMP_RELATION
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    RECEIPT_DIM {
+        string RECEIPT_KEY PK
+        string BRCH_CD
+        string NO_TEXT
+        string RECEIPT_NO
+        int RECEIPT_SEQ_NO
+        int RECEIPT_YEAR
+        string FILE_TYPE
+        string PAYEE_IT_REF_NO
+        string PAYEE_EMPL_REF_NO
+        string ASSOCIATE_IND
+        string PYMT_CD
+        string PYMT_STAT
+        decimal CREDIT_AMT
+        string INRU_NO
+        string INRU_DRAWN_ON
+        string INRU_COLC_CD
+        string INRU_COLC_TYP
+        int INRU_COLC_COUNTER_NO
+        string COLC_CD
+        string COLC_TYP
+        int COLC_COUNTER_NO
+        string PAYER_IT_REF_NO
+        string PAYER_EMPL_REF_NO
+        string BANK_PAY_IN_SLIP
+        decimal RECEIPT_AMT
+        string PYMT_TYPE
+        string PYMT_MODE
+        string BANK_PYMT_MODE
+        date PYMT_RECV_DT
+        date RECEIPT_DATE
+        date EFFECTIVE_DATE
+        string UPDATE_USERID
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    RETURN_FORM_DIM {
+        string IT_REF_NO PK
+        int ASSESSMENT_YEAR PK
+        string SOURCE_SYSTEM_ID
+        string FORM_TYPE
+        date ISSUE_DATE
+        date RECEIVE_DATE
+        string COMBINED_INDICATOR
+        string LEAD_INDICATOR
+        string SUBMISSION_TYPE
+        string LATE_SUBMISSION
+        string HOLD_STATUS
+        string PROCESS_INDICATOR
+        string STATUS
+        date EXTENSION_DATE
+        string EXTENSION_DATE2
+        string FORCE_ENTRY_IND
+        date DUE_DATE
+        date EFFECTIVE_DATE
+        timestamp LOADING_TIMESTAMP
+        string DEEM_IND
+        string MARITAL_STATUS
+        string EMPLOYER_NAME
+        string EMPLOYER_NO
+        string EMPLOYER_PHONE_NO
+        string COMPANY_TYPE
+        string NR_IND
+        string KNOWLEDGE_WORKER_IND
+        date MINISTER_APPR_DT
+        string WEBSITE_BLOG_ADDR
+        string IT_GROUP_CD
+        string REC_FINAL_STATUS
+        date PROCESS_DT
+        date INCOMPLETE_DATE
+        string INCOMPLETE_STATUS
+    }
+
+    BUS_INC_FACT {
+        decimal TAXPAYER_KEY PK 
+        string ASSESSMENT_KEY FK
+        int BUSINESS_SEQ PK
+        string BUSINESS_KEY FK
+        int PARTNER_SEQ PK
+        string PARTNER_REF_NO
+        date EFFECTIVE_DATE 
+        decimal BUSINESS_INCOME
+        decimal CAPITAL_ALLOW_CLAIM
+        string CAPITAL_CF
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    P_BUS_INC_FACT_TEST {
+        string PARTNERSHIP_KEY PK 
+        string BRANCH_KEY FK
+        date EFFECTIVE_DATE 
+        int BUSINESS_SEQ_NO PK
+        int PARTNER_SEQ_NO PK
+        string PIONEER_IND
+        decimal TAXPAYER_KEY FK
+        string IT_REF_NO
+        string BUSINESS_CODE
+        string PARTNERSHIP_IT_REF_NO
+        string ADJUST_PL
+        decimal DIVISIBLE_INCOME_LOSO
+        string ADD_AFTER_DIVISIBLE
+        decimal BALANCING_CHARGE
+        decimal BALANCING_ALLOWANCE
+        string SCHEDULE_7A
+        string QUALIFY_SERVICE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string DIVISIBLE_INC_LOSO
+        decimal ADJUST_PROFIT_LOSO
+    }
+
+    CP30_INFO_FACT {
+        string PARTNERSHIP_KEY PK 
+        timestamp EFFECTIVE_TIMESTAMP 
+        decimal TAXPAYER_KEY PK 
+        string IT_REF_NO
+        string CP30_IND
+        date CP30_DT
+        string CP30_UPD_IND
+        date CP30_UPD_DT
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    P_WHT_FACT {
+        decimal TAXPAYER_KEY FK
+        string PARTNERSHIP_KEY FK
+        timestamp EFFECTIVE_TIMESTAMP
+        string IT_REF_NO
+        decimal WHT_107A_GROSS_AMOUNT
+        string WHT_107A_REMITTED
+        decimal WHT_109_GROSS_AMOUNT
+        string WHT_109_REMITTED
+        decimal WHT_109A_GROSS_AMOUNT
+        string WHT_109A_REMITTED
+        decimal WHT_109B_GROSS_AMOUNT
+        string WHT_109B_REMITTED
+        decimal WHT_109F_GROSS_AMOUNT
+        string WHT_109F_REMITTED
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    P_FINANCIAL_FACT {
+        string PARTNERSHIP_KEY FK
+        timestamp EFFECTIVE_TIMESTAMP
+        string IT_REF_NO
+        decimal TAXPAYER_KEY FK
+        string BUSINESS_KEY FK
+        decimal GROSS_SALES
+        string OPENING_STOCK
+        decimal PURCHASES
+        string CLOSING_STOCK
+        decimal COST_OF_GOODS_SOLD
+        decimal GROSS_PROFIT_IND
+        decimal GROSS_PROFIT
+        decimal OTHER_BUSINESS_INCOME
+        decimal DIVIDEND_BUSINESS_INCOME
+        decimal INTEREST_BUSINESS_INCOME
+        string ROYALTY
+        decimal OTHER_NON_SALES_INCOME
+        decimal TOTAL_NON_SALES_INCOME
+        decimal LOAN_INTEREST_EXPENSE
+        decimal SALARY_EXPENSE
+        decimal RENT_OR_LEASE_EXPENSE
+        decimal CONTRACT_SUBCON_EXPENSE
+        decimal COMMISSION_EXPENSE
+        string BAD_DEBT
+        decimal TRAVELLING_EXPENSE
+        string REPAIR
+        string PROMOTION
+        decimal OTHER_EXPENSES
+        decimal TOTAL_EXPENSES
+        decimal NET_PROFIT_OR_LOSS_IND
+        decimal NET_PROFIT_OR_LOSS
+        decimal NON_ALLOW_EXP_AMT
+        string LAND_AND_BUILDING
+        string PLANT_AND_MACHINERY
+        string MOTOR_VEHICLES
+        string OTHER_FIXED_ASSETS
+        string TOTAL_FIXED_ASSETS
+        string INVESTMENT
+        string STOCKS
+        string TRADE_DEBTORS
+        string OTHER_DEBTORS
+        string CASH_IN_HAND
+        string CASH_AT_BANK_SIGN_IND
+        string CASH_IN_BANK
+        string OTHER_CURRENT_ASSETS
+        string TOTAL_CURRENT_ASSETS
+        string TOTAL_ASSETS
+        string LOANS
+        decimal TRADE_CREDITORS
+        decimal OTHER_CREDITORS
+        string TOTAL_LIABILITIES
+        string ADV_OR_CAPITAL_INT_BY
+        decimal BALANCE_BR_FWD_SIGN_IND
+        decimal BALANCE_BR_FWD_AMT
+        decimal CURR_YR_PROFIT_OR_LOSS_AMT_IND
+        decimal CURR_YR_PROFIT_OR_LOSS_AMT
+        string DRAWING_SIGN_IND
+        decimal DRAWING_AMT
+        decimal BAL_CARRIED_FWD_IND
+        decimal BAL_CARRIED_FWD_AMT
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        decimal YEARLY_FEE_AMT
+        decimal ENTRANCE_FEE_AMT
+        decimal VISITOR_FEE_AMOUNT
+        decimal CONFERENCE_INC_AMT
+        decimal DONATION_AMT
+        decimal NON_MEMBER_AMT
+        decimal PUBLISHER_AMT
+        decimal CONFERENCE_EXP_AMT
+        decimal LAWYER_EXP_AMT
+        decimal MEETING_EXP_AMT
+        decimal DECEASE_FUND_AMT
+        decimal SHRT_TERM_SAVE_AMT
+        decimal OTHER_LIAB_AMT
+        decimal LONG_TERM_LIAB_AMT
+        decimal SPECIAL_FUND_AMT
+        int CURRYR_DEFISIT_IND
+        decimal CURRYR_DEFISIT_AMT
+        decimal LEVI_AMT
+        decimal BAL_SPECIAL_FUND
+        decimal BAL_SPCL_FUND_IND
+        string RVC_SPECIAL_FUND
+        string BUSINESS_NAME
+        int CYR_DEFICIT_SIGN_IND
+    }
