@@ -1,0 +1,416 @@
+---
+config:
+  layout: elk
+  theme: mc
+---
+erDiagram
+    TAXPAYER_DIM ||--o{ P_FINANCIAL_FACT : "records financial data for"
+    TAXPAYER_DIM ||--o{ P_RELIEF_FACT : "claims relief"
+    TAXPAYER_DIM ||--o{ P_DEDUCTION_FACT : "claims deduction"
+    TAXPAYER_DIM ||--o{ P_WHT_FACT : "pays withholding tax"
+    TAXPAYER_DIM ||--o{ PARTNER_MBR_BRDG : "is a member of"
+    TAXPAYER_DIM ||--o{ CP_30_INFO_FACT : "receives CP30"
+    TAXPAYER_DIM ||--o{ P_BUS_INC_FACT_TEST : "reports business income"
+    TAXPAYER_DIM ||--o{ P_PREV_INC_FACT : "reports previous income"
+    TAXPAYER_DIM ||--o{ P_INC_FACT_TEST : "reports income test"
+
+    PARTNERSHIP_DIM ||--o{ P_FINANCIAL_FACT : "financials for"
+    PARTNERSHIP_DIM ||--o{ P_RELIEF_FACT : "reliefs associated with"
+    PARTNERSHIP_DIM ||--o{ P_DEDUCTION_FACT : "deductions for"
+    PARTNERSHIP_DIM ||--o{ P_WHT_FACT : "withholding tax for"
+    PARTNERSHIP_DIM ||--o{ PARTNER_MBR_BRDG : "has partners"
+    PARTNERSHIP_DIM ||--o{ CP_30_INFO_FACT : "issues CP30"
+    PARTNERSHIP_DIM ||--o{ P_BUS_INC_FACT_TEST : "business income from"
+    PARTNERSHIP_DIM ||--o{ P_PREV_INC_FACT : "historical income for"
+    PARTNERSHIP_DIM ||--o{ P_INC_FACT_TEST : "income details for"
+
+    BUSINESS_DIM_NEW ||--o{ P_FINANCIAL_FACT : "categorizes"
+    BUSINESS_DIM_NEW ||--o{ P_BUS_INC_FACT_TEST : "categorizes income for"
+    
+    DEDUCTION_DIM ||--o{ P_DEDUCTION_FACT : "defines claim type for"
+    
+    ADDRESS_DIM ||--o{ TAXPAYER_DIM : "location of"
+
+    TAXPAYER_DIM {
+        string VIP_CODE
+        string IT_ASSM_BRANCH
+        string TAXPAYER_KEY PK
+        string FILE_TYPE
+        string IT_REF_NO
+        string NEW_IC_NO
+        string OLD_IC_NO
+        string NAME
+        string PASSPORT_NO
+        string POLICE_NO
+        string ARMY_NO
+        string ROB_NO
+        string ROC_NO
+        string PHONE_NO
+        string SEX
+        string MARITAL_STATUS
+        string MALAYSIAN_CITIZEN
+        string CITIZEN_COUNTRY
+        string EPF_NO
+        string EMPLOYER_NO
+        string REGISTRATION_DATE
+        string FILE_STATUS
+        string NO_OF_PARTNERSHIP
+        string COORPORATION_TYPE
+        string TRUST_TYPE
+        string REGISTRATION_CERT_NO
+        string WILL_INDICATOR
+        string AUTHORISATION_LETTER_INDICATOR
+        string AUTHORISATION_LETTER_DATE
+        string LOCAL_DECEASED_INDICATOR
+        string DECEASE_COUNTRY_CODE
+        string RACE_CODE
+        string RELIGION_CODE
+        string PROFESSION_CORD
+        string IMMIGRATION_INDICATOR
+        string TOTAL_CHILDREN
+        string PCB_TYPE
+        string IT_COLLECTION_BRANCH
+        string CXHT_ASSM_BRANCH
+        string CKHT_COLLECTION_BRANCH
+        string START_OF_ACCOUNT_PERIOD
+        string END_OF_ACCOUNT_PERIOD
+        string COMPANY_STATUS
+        string ACTIVE_FLAG
+        string EST_IND
+        string HONORIFIC_CD
+        string TITLE_NAME
+        string TYP
+        string RESIDENT_IND
+        string RESIDENT_COUNTRY_CD
+        string CLASS_CD
+        string COMPANY_TYP
+        string CREATION_REASON
+        string PERMANENT_IND
+        string NET_IT_LGR_DR_AMT
+        string NET_IT_REFUND_CR_AMT
+        string NET_CKHT_LGRBL_AMT
+        string NET_IT_UPOS_CR_AMT
+        string NET_IT_UPOS_DR_AMT
+        string INVESTIGATION_IND
+        string INVEST_ASMSTART_YR
+        string INVEST_ASM_END_YR
+        string CMULATVE_ASSET_AMT
+        string LAST_CP77_CP38_DT
+        string SECT_8_EXEMPT_IND
+        string SECTION_104_IND
+        string MARKED_AS_DUPL_IND
+        string WRITE_OFF_STAT
+        string WRITE_OFF_REASONCD
+        string REMARKS
+        string INACTIVE_DT
+        string ACTIVATION_DT
+        string BANKRUPT_DT
+        string BANKRUPT_IND
+        string E_MALAYSIA_ITREFNO
+        string BANK_CD
+        string BANK_ACCT_NO
+        string NUM_OF_TIME_AUDIT
+        string AUDIT_CYCLE
+        string EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        string LOADING_TIMESTAMP
+        string NR_START_YEAR
+        string NR_END_YEAR
+        string SOURCE_FLAG
+        string BIRTH_DT
+        string DEATH_DT
+    }
+
+    PARTNERSHIP_DIM {
+        string PARTNERSHIP_KEY PK
+        string IT_REF_NO
+        string ASSESSMENT_YEAR
+        string SEQ_NO
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    P_FINANCIAL_FACT {
+        string PARTNERSHIP_KEY PK
+        timestamp EFFECTIVE_TIMESTAMP
+        string IT_REF_NO
+        string TAXPAYER_KEY PK
+        string BUSINESS_KEY PK
+        float GROSS_SALES
+        float OPENING_STOCK
+        float PURCHASES
+        float CLOSING_STOCK
+        float COST_OF_GOODS_SOLD
+        string GROSS_PROFIT_IND
+        float GROSS_PROFIT
+        float OTHER_BUSINESS_INCOME
+        float DIVIDEND_BUSINESS_INCOME
+        float INTEREST_BUSINESS_INCOME
+        float ROYALTY
+        float OTHER_NON_SALES_INCOME
+        float TOTAL_NON_SALES_INCOME
+        float LOAN_INTEREST_EXPENSE
+        float SALARY_EXPENSE
+        float RENT_OR_LEASE_EXPENSE
+        float CONTRACT_SUBCON_EXPENSE
+        float COMMISSION_EXPENSE
+        float BAD_DEBT
+        float TRAVELLING_EXPENSE
+        float REPAIR
+        float PROMOTION
+        float OTHER_EXPENSES
+        float TOTAL_EXPENSES
+        string NET_PROFIT_OR_LOSS_IND
+        float NET_PROFIT_OR_LOSS
+        float NON_ALLOW_EXP_AMT
+        float LAND_AND_BUILDING
+        float PLANT_AND_MACHINERY
+        float MOTOR_VEHICLES
+        float OTHER_FIXED_ASSETS
+        float TOTAL_FIXED_ASSETS
+        float INVESTMENT
+        float STOCKS
+        float TRADE_DEBTORS
+        float OTHER_DEBTORS
+        float CASH_IN_HAND
+        string CASH_AT_BANK_SIGN_IND
+        float CASH_IN_BANK
+        float OTHER_CURRENT_ASSETS
+        float TOTAL_CURRENT_ASSETS
+        float TOTAL_ASSETS
+        float LOANS
+        float TRADE_CREDITORS
+        float OTHER_CREDITORS
+        float TOTAL_LIABILITIES
+        float ADV_OR_CAPITAL_INT_BY
+        string BALANCE_BR_FWD_SIGN_IND
+        float BALANCE_BR_FWD_AMT
+        string CURR_YR_PROFIT_OR_LOSS_AMT_IND
+        float CURR_YR_PROFIT_OR_LOSS_AMT
+        string DRAWING_SIGN_IND
+        float DRAWING_AMT
+        string BAL_CARRIED_FWD_IND
+        float BAL_CARRIED_FWD_AMT
+        date SNAPSHOT_DATE PK
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        date YEARLY_FEE_AMT
+        string ENTRANCE_FEE_AMT
+        string VISITOR_FEE_AMOUNT
+        string CONFERENCE_INC_AMT
+        string DONATION_AMT
+        string NON_MEMBER_AMT
+        string PUBLISHER_AMT
+        string CONFERENCE_EXP_AMT
+        string LAWYER_EXP_AMT
+        string MEETING_EXP_AMT
+        string DECEASE_FUND_AMT
+        string SHRT_TERM_SAVE_AMT
+        string OTHER_LIAB_AMT
+        string LONG_TERM_LIAB_AMT
+        string SPECIAL_FUND_AMT
+        string CURRYR_DEFISIT_IND
+        string CURRYR_DEFISIT_AMT
+        string LEVI_AMT
+        string BAL_SPECIAL_FUND
+        string BAL_SPCL_FUND_IND
+        string RVC_SPECIAL_FUND
+        string BUSINESS_NAME
+        string CYR_DEFICIT_SIGN_IND
+    }
+
+    P_RELIEF_FACT {
+        string TAXPAYER_KEY
+        string PARTNERSHIP_KEY
+        timestamp EFFECTIVE_TIMESTAMP
+        string IT_REF_NO
+        float SEC110_SETOFF_OTHERS
+        float SEC132_RELIEF
+        float SEC133_RELIEF
+        float PETROLEUM_EXPENSE
+        float GIFT_TO_GOVERNMENT
+        float GIFT_OF_ARTEFACT
+        float GIFT_TO_LIBRARY
+        float GIFT_TO_ART_GALLERY
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        float PLANTATION_EXPENSES
+        float GIFT_TO_PUBLIC_FOR_DISABLE
+        float GIFT_TO_HEALTHCARE
+        float OTH_RELIEF_ALLOW_ACT1967
+    }
+
+    DEDUCTION_DIM {
+        string DEDUCTION_KEY PK
+        string CLAIM_CODE
+        string CLAIM_DESCRIPTION
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    P_DEDUCTION_FACT {
+        string TAXPAYER_KEY
+        string PARTNERSHIP_KEY
+        timestamp EFFECTIVE_TIMESTAMP
+        string IT_REF_NO
+        string DEDUCTION_KEY
+        float CLAIM_AMOUNT
+        float TOTAL_CLAIM
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        int CLAIM_SEQ_NO
+        string TOTAL_CLAIM_FLAG
+    }
+
+    P_WHT_FACT {
+        string TAXPAYER_KEY
+        string PARTNERSHIP_KEY
+        string IT_REF_NO
+        float WHT_107A_GROSS_AMOUNT
+        float WHT_107A_REMITTED
+        float WHT_109_GROSS_AMOUNT
+        float WHT_109_REMITTED
+        float WHT_109A_GROSS_AMOUNT
+        float WHT_109A_REMITTED
+        float WHT_109B_GROSS_AMOUNT
+        float WHT_109B_REMITTED
+        float WHT_109F_GROSS_AMOUNT
+        float WHT_109F_REMITTED
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    PARTNER_MBR_BRDG {
+        string TAXPAYER_KEY
+        string PARTNERSHIP_KEY
+        date EFFECTIVE_DATE
+        string IT_REF_NO
+        int PARTNER_SEQ_NO
+        string MEMBERSHIP_IND
+        float EQUITY
+        string DOMICILE_COUNTRY
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string NAME
+        string IT_GRP_CD
+        date MEMBERSHIP_END_DT
+        string BENEFIT_1
+        string BENEFIT_2
+        string BENEFIT_3
+        string STATUTORY_INCOME
+        string SIGN_IND
+        string ADJUSTMENT_LOSESS
+        string PART_REF_NO
+    }
+
+    CP_30_INFO_FACT {
+        string PARTNERSHIP_KEY
+        timestamp EFFECTIVE_TIMESTAMP
+        string TAXPAYER_KEY
+        string IT_REF_NO
+        string CP3D_IND
+        date CP30_DT
+        string CPED_UPD_IND
+        date CP30_UPD_DT
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    BUSINESS_DIM_NEW {
+        string BUSINESS_KEY PK
+        string BUSINESS_GROUP_CODE
+        string BUSINESS_CODE
+        string BUSINESS_DESCRIPTION
+        date EFFECTIVE_DATE
+        string SOURCE_SYSTEM_ID
+        string LOADING_TIMESTAMP
+        string STS_EFFECTIVE_DT
+        string BUS_GRP_KEY
+    }
+
+    ADDRESS_DIM {
+        string ADDRESS_ID
+        string ADDRESS_TYPE
+        string ACTIVE_FLAG
+        string ADDRESS_KEY PK
+        date EFFECTIVE_DATE
+        string ADDRESS_LINE1
+        string ADDRESS_LINE2
+        string ADDRESS_LINE3
+        string CITY
+        string STATE
+        string POSTCODE
+        string TELEPHONE_NO
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    P_BUS_INC_FACT_TEST {
+        string PARTNERSHIP_KEY
+        string BRANCH_KEY
+        date EFFECTIVE_DATE
+        string BUSINESS_SEQ_NO
+        string PARTNER_SEQ_NO
+        string PIONEER_IND
+        string TAXPAYER_KEY
+        string IT_REF_NO
+        string BUSINESS_CODE
+        string PARTNERSHIP_IT_REF_NO
+        float ADJUST_PL
+        float DIVISIBLE_INCOME_LOSS
+        float ADD_AFTER_DIVISIBLE
+        float BALANCING_CHARGE
+        float BALANCING_ALLOWANCE
+        float SCHEDULE_7A
+        float QUALIFY_SERVICE
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        float DIVISABLE_INC_LOSO
+        float ADJUST_PROFIT_LOSO
+    }
+
+    P_PREV_INC_FACT {
+        string PARTNERSHIP_KEY
+        date EFFECTIVE_DATE
+        int CLAIM_SEQ_NO
+        string ASM_LGR_CD
+        string TAXPAYER_KEY
+        string IT_REF_NO
+        string INCOME_TYPE
+        int INCOME_YEAR
+        string INCOME_IND
+        float AMOUNT
+        float TAX_DEDUCTION
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+    }
+
+    P_INC_FACT_TEST {
+        string PARTNERSHIP_KEY
+        string BRANCH_KEY
+        string ASSESSMENT_TYPE
+        date EFFECTIVE_DATE
+        float EQUITY
+        float DVD_MY_DIVISABLE
+        float DVD_MY_DEDUCTION
+        float INTEREST_DISCOUNT
+        string RENT_ROYALTY
+        string OTHER_INCOME
+        date SNAPSHOT_DATE
+        string SOURCE_SYSTEM_ID
+        timestamp LOADING_TIMESTAMP
+        string TAXPAYER_KEY
+        string IT_REF_NO
+        string ADDITION_P43
+        string DVD_WAVD_DBLTAX_DIVISABLE
+        string DVD_WAVD_DBLTAX_DEDUCTION
+        string DVD_WOAVD_DBLTAX_DIVISABLE
+        string DVD_WOAVD_DBLTAX_DEDUCTION
+    }
